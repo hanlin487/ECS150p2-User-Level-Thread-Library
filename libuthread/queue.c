@@ -59,6 +59,8 @@ int queue_enqueue(queue_t queue, void *data)
 	n->data = data;
 	n->next = NULL;
 
+	/* if queue empty then node = head = tail 
+		else just append it */
 	if (queue->size == 0){
 		queue->head = n;
 		queue->tail = n;
@@ -75,17 +77,17 @@ int queue_enqueue(queue_t queue, void *data)
 int queue_dequeue(queue_t queue, void **data)
 {
 	/* TODO Phase 1 */
-	node* old_node = queue->head;
-
 	/* if queue or data are null or queue is empty return -1 */
 	if (queue == NULL || data == NULL || queue->size == 0){
 		return -1;
 	}
 
+	node* old_node = queue->head;
 	*data = queue->head->data;
 	queue->head = queue->head->next;
 
 	free(old_node);
+	queue->size--;
 	return 0;
 }
 
@@ -96,12 +98,64 @@ int queue_delete(queue_t queue, void *data)
 		return -1;
 	}
 
-	
+	/* if only one node and node data matches */
+	if (queue->size == 1 && queue->head->data == data){
+		free(queue->head);
+
+		queue->head = NULL;
+		queue->tail = NULL;
+		queue->size--;
+
+		return 0;
+	}
+
+	/* if queue size > 1 and queue head is a match */
+	else if (queue->head->data == data){
+		node* temp = queue->head;
+		queue->head = queue->head->next;
+
+		free(temp);
+		queue->size--;
+
+		return 0;
+	}
+
+	/* otherwise find the node in the queue (if it exists) */
+	else {
+		node* n = queue->head;
+		node* temp;
+
+		while (n != NULL){
+			if (n->data == data){
+				temp->next = n->next;
+
+				free(n);
+				queue->size--;
+				return 0;
+			}
+
+			temp = n;
+			n = n->next;
+		}
+	}
+	return -1;
 }
 
 int queue_iterate(queue_t queue, queue_func_t func)
 {
 	/* TODO Phase 1 */
+	if (queue == NULL || func == NULL){
+		return -1;
+	}
+
+	node* n = queue->head;
+
+	while (n != NULL){
+		func(n);
+		n = n->next;
+	}
+
+	return 0;
 }
 
 int queue_length(queue_t queue)
