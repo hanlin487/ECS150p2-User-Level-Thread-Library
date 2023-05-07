@@ -5,8 +5,8 @@ The queue implementation is pretty simple with all the functions defined in\
 the header. The actual queue structure is pretty simple as it's just a\
 linked list with `node` objects that contain a `void *` data pointer and a\
 `node *` pointer to the next node. As for the `queue` itself includes the\
-`head`, `tail`, and `size`.\
-
+`head`, `tail`, and `size`.  
+  
 
 #### Queue Functions  
 - `queue_create` is made by attempting to allocate memory for the queue first\
@@ -46,9 +46,9 @@ current node before the function is called on the current node. This way there\
 will be a variable that points to node 4 (in the context of the example above)\
 and after the function is called and node 3 is deleted then the while loop\
 sets the `current node = next node` instead of doing\
-`current node = current node->next`.\
-
-
+`current node = current node->next`.  
+  
+  
 #### Queue Testing
 Testing was simple with the queue. Empty queue testing, enqueuing values,\
 dequeuing values and printing them out, deleting values and ensuring size and\
