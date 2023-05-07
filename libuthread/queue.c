@@ -166,4 +166,3 @@ int queue_length(queue_t queue)
 	/* TODO Phase 1 */
 	return queue->size;
 }
-
