@@ -7,7 +7,7 @@ linked list with `node` objects that contain a `void *` data pointer and a\
 `node *` pointer to the next node. As for the `queue` itself includes the\
 `head`, `tail`, and `size`.\
 \
-\
+
 #### Queue Functions  
 - `queue_create` is made by attempting to allocate memory for the queue first\
  but the function, like many other functions, checks for the success of the\
@@ -48,5 +48,5 @@ and after the function is called and node 3 is deleted then the while loop\
 sets the `current node = next node` instead of doing\
 `current node = current node->next`.\
 \
-\
+
 #### Queue Testing
