@@ -5,9 +5,9 @@ The queue implementation is pretty simple with all the functions defined in\
 the header. The actual queue structure is pretty simple as it's just a\
 linked list with `node` objects that contain a `void *` data pointer and a\
 `node *` pointer to the next node. As for the `queue` itself includes the\
-`head`, `tail`, and `size`.  
-
-
+`head`, `tail`, and `size`.\
+\
+\
 #### Queue Functions  
 - `queue_create` is made by attempting to allocate memory for the queue first\
  but the function, like many other functions, checks for the success of the\
@@ -39,11 +39,14 @@ called on deletes the nodes in the queue. For a `queue` with node\
 the iterate function it still points to node 3. But since node 3 is already\
 freed it's now `NULL` and can't be accessed when the while loop reaches the\
 line where it tries to do `current node = node 3->next` which will cause the\
-**SEGFAULT**\
+**SEGFAULT**.\
 In order to work around this in the `while` loop that iterates through all the\
 nodes another `node` variable is used and is set to the next node of the\
 current node before the function is called on the current node. This way there\
 will be a variable that points to node 4 (in the context of the example above)\
 and after the function is called and node 3 is deleted then the while loop\
 sets the `current node = next node` instead of doing\
-`current node = current  node->next`.
+`current node = current node->next`.\
+\
+\
+#### Queue Testing
