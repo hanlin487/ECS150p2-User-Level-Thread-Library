@@ -1,12 +1,13 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 #include "queue.h"
 
 typedef struct node {
 	void* data;
-	node* next;
+	struct node* next;
 
 } node;
 
@@ -21,7 +22,7 @@ typedef struct queue {
 queue_t queue_create(void)
 {
 	/* TODO Phase 1 */
-	queue* q = malloc(sizeof(queue));
+	queue_t q = (queue_t) malloc(sizeof(queue));
 
 	/* queue creation failure */
 	if (q == NULL){
@@ -149,10 +150,12 @@ int queue_iterate(queue_t queue, queue_func_t func)
 	}
 
 	node* n = queue->head;
+	node* next_node;
 
 	while (n != NULL){
-		func(n);
-		n = n->next;
+		next_node = n->next;
+		func(queue, n->data);
+		n = next_node;
 	}
 
 	return 0;
