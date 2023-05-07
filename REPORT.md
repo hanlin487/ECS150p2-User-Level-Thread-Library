@@ -50,3 +50,12 @@ sets the `current node = next node` instead of doing\
 
 
 #### Queue Testing
+Testing was simple with the queue. Empty queue testing, enqueuing values,\
+dequeuing values and printing them out, deleting values and ensuring size and\
+node order are correct, trying to delete values that aren't in the queue,\
+destroying a queue that isn't empty, destroying an empty queue, iterating\
+through the queue and incrementing the data in each node or printing them out,\
+etc. Memory allocation errors weren't present but that may be dependent on the\
+machine. Instead to kind of "cheat" the malloc failure I just defined the\
+malloc(...) call to be `NULL` so that when creating a `queue` or `node` in the\
+function's precheck it fails the condition and returns -1.
