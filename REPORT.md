@@ -1,13 +1,13 @@
 # Project 2
 ## Queue Implementation
-#### Queue Data Structure Design
+### Queue Data Structure Design
 The queue implementation is pretty simple with all the functions defined in\
 the header. The actual queue structure is pretty simple as it's just a\
 linked list with `node` objects that contain a `void *` data pointer and a\
 `node *` pointer to the next node. As for the `queue` itself includes the\
 `head`, `tail`, and `size`.  
- \
-#### Queue Functions  
+
+### Queue Functions  
 - `queue_create` is made by attempting to allocate memory for the queue first\
  but the function, like many other functions, checks for the success of the\
  memory allocation with a function like\
@@ -46,8 +46,8 @@ will be a variable that points to node 4 (in the context of the example above)\
 and after the function is called and node 3 is deleted then the while loop\
 sets the `current node = next node` instead of doing\
 `current node = current node->next`.  
- \
-#### Queue Testing
+
+### Queue Testing
 Testing was simple with the queue. Empty queue testing, enqueuing values,\
 dequeuing values and printing them out, deleting values and ensuring size and\
 node order are correct, trying to delete values that aren't in the queue,\
@@ -57,3 +57,6 @@ etc. Memory allocation errors weren't present but that may be dependent on the\
 machine. Instead to kind of "cheat" the malloc failure I just defined the\
 malloc(...) call to be `NULL` so that when creating a `queue` or `node` in the\
 function's precheck it fails the condition and returns -1.
+
+## Thread Implementation  
+## Thread Data Structure Design  
