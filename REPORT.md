@@ -9,7 +9,7 @@ linked list with node objects that contain a `void *` data pointer and a\
 
 ### Queue Functionality
 - `queue_create()`  checks for the success of the memory allocation with a\
-function like\
+function like
 ```c
                 if (q == NULL){
                     return NULL;

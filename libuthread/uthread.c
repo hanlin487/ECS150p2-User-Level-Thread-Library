@@ -68,7 +68,7 @@ void uthread_exit(void){
 	    return;
     }
     else{
-	    running -> state = RUNNING;
+	    running->state = RUNNING;
 	    uthread_ctx_switch(first_proc->context, running->context);
 	    free(first_proc);
     }
