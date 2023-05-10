@@ -22,7 +22,7 @@ typedef struct uthread_tcb {
 } uthread_tcb;
 
 static queue_t ready_q = NULL;
-static queue_t blocked_q = NULL;
+//static queue_t blocked_q = NULL;
 static struct uthread_tcb* running;
 
 struct uthread_tcb* createThread(void){
@@ -80,7 +80,7 @@ int uthread_run(bool preempt, uthread_func_t func, void *arg){
     }
 
     ready_q = queue_create();
-    blocked_q = queue_create();
+    //blocked_q = queue_create();
 
     //Turn running thread into a struct
     running = createThread();
@@ -97,4 +97,27 @@ int uthread_run(bool preempt, uthread_func_t func, void *arg){
     }
 
     return 0;
+}
+
+struct uthread_tcb *uthread_current(void){
+    return running;
+}
+
+void uthread_block(void){
+    running->state = BLOCKED;
+    //queue_enqueue(blocked_q, (void*)running);
+    uthread_tcb *first_proc;
+    first_proc = running;
+
+    //Add an empty queue case here like in exit
+    queue_dequeue(ready_q, (void**) &running);
+    running->state = RUNNING;
+    uthread_ctx_switch(first_proc->context, running->context);
+
+}    
+
+void uthread_unblock(struct uthread_tcb *uthread){
+    uthread -> state = READY;
+    //queue_delete(blocked_q,(void*) uthread);
+    queue_enqueue(ready_q,(void*) uthread);
 }
