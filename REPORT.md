@@ -60,3 +60,7 @@ function's precheck it fails the condition and returns -1.
 
 ## Thread Implementation  
 ## Thread Data Structure Design  
+Our thread data structure `uthread_tcb` is a pretty simple struct that has  
+a `void *` stack pointer, state, and thread context. There's also a queue for  
+ready processes, blocked processes, and a thread TCB for the currently running\
+thread.
