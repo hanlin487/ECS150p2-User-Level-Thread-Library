@@ -1,16 +1,16 @@
 # Target library
 lib := libuthread.a
 FLAGS := -Wall -Wextra -Werror -g
-SRCFILES := queue.c uthread.c context.c preempt.c
+SRCFILES := queue.c uthread.c context.c sem.c
 
 all: $(lib)
 
 ## TODO: Phase 1
-$(lib): queue.o uthread.o context.o preempt.o
+$(lib): queue.o uthread.o context.o sem.o 
 	ar rcs $(lib) $^
 
 %.o : %.c
 	gcc $(FLAGS) -c -o $@ $<
 
 clean:
-	rm -f $(lib) queue.o uthread.o context.o preempt.o
+	rm -f $(lib) queue.o uthread.o context.o sem.o
