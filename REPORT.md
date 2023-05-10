@@ -3,9 +3,9 @@
 ### Queue Data Structure Design
 The queue implementation is pretty simple with all the functions defined in\
 the header. The actual queue structure is pretty simple as it's just a\
-linked list with `node` objects that contain a `void *` data pointer and a\
-`node *` pointer to the next node. As for the `queue` itself includes the\
-`head`, `tail`, and `size`.  
+linked list with node objects that contain a `void *` data pointer and a\
+`node *` pointer to the next node. As for the queue itself it includes the\
+**head, tail, and size.**  
 
 ### Queue Functionality
 - `queue_create()`  checks for the success of the memory allocation with a\
@@ -24,23 +24,22 @@ respective jobs with `queue_enqueue()` appending nodes to the queue **tail**\
 and incrementing the **size**. All functions have pre-checks to ensure the\
 queue and node are valid before enqueuing, dequeuing, or deleting. 
 - `queue_iterate()` is a more complex function since it takes a function and\
-takes in the arguments `(queue_t queue, queue_func_t func)` with `func`\
+takes in the arguments `(queue_t queue, queue_func_t func)` with func\
 arguments `(queue_t queue, void *data)`. The iterate is supposed to call\
-the **function** on each `data` in the `queue` from **head** to **tail**. The\
+the function on each data in the queue from **head** to **tail**. The\
 biggest issue is that with a function like `queue_delete()` the iterate\
 function will **SEGFAULT** when the function that's called on deletes the\
-nodes in the queue. For a `queue` with node `(1, 2, 3, 4)` if node 3 is\
+nodes in the queue. For a queue with node `(1, 2, 3, 4)` if node 3 is\
 deleted, the queue becomes `(1, 2, 4)` however in the iterate function it\
 still points to node 3. But since node 3 is already freed it's now `NULL` and\
 can't be accessed when the while loop reaches the line where it tries to do\
 `current node = node 3->next` which will cause the **SEGFAULT**. In order to\
-work around this in the `while` loop that iterates through all the nodes\
-another `node` variable is used and is set to the next node of the current\
-node before the function is called on the current node. This way there will be\
-a variable that points to node 4 (in the context of the example above) and \
-after the function is called and node 3 is deleted then the while loop sets \
-the `current node = next node` instead of doing\
-`current node = current node->next`.  
+work around this in the loop that iterates through all the nodes another node\
+variable is used and is set to the next node of the current node before the\
+function is called on the current node. This way there will be a variable that\
+points to node 4 (in the context of the example above) and after the function\
+is called and node 3 is deleted then the while loop sets the current node = \
+next node instead of doing current node = current node->next.  
 
 ### Queue Testing
 Testing was simple with the queue. Empty queue testing, enqueuing values,\
@@ -50,7 +49,7 @@ destroying a queue that isn't empty, destroying an empty queue, iterating\
 through the queue and incrementing the data in each node or printing them out,\
 etc. Memory allocation errors weren't present but that may be dependent on the\
 machine. Instead to kind of "cheat" the malloc failure we just defined the\
-malloc(...) call to be `NULL` so that when creating a `queue` or `node` in the\
+malloc(...) call to be `NULL` so that when creating a queue or node in the\
 function's precheck it fails the condition and returns -1. Tests are in the\
 *queue_tester.c* file.
 
