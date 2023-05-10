@@ -1,5 +1,5 @@
 # Project 2
-## Queue Implementation
+## **Queue Implementation**
 ### Queue Data Structure Design
 The queue implementation is pretty simple with all the functions defined in\
 the header. The actual queue structure is pretty simple as it's just a\
@@ -58,8 +58,8 @@ machine. Instead to kind of "cheat" the malloc failure I just defined the\
 malloc(...) call to be `NULL` so that when creating a `queue` or `node` in the\
 function's precheck it fails the condition and returns -1.
 
-## Thread Implementation  
-## Thread Data Structure Design  
+## **Thread Implementation**  
+### Thread Data Structure Design  
 Our thread data structure `uthread_tcb` is a pretty simple struct that has  
 a `void *` stack pointer, state, and thread context. There's also a queue for  
 ready processes, blocked processes, and a thread TCB for the currently running\
