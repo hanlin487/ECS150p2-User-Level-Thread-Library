@@ -8,7 +8,7 @@ linked list with `node` objects that contain a `void *` data pointer and a\
 `head`, `tail`, and `size`.  
 
 ### Queue Functions  
-- `queue_create` is made by attempting to allocate memory for the queue first\
+- `queue_create()` is made by attempting to allocate memory for the queue first\
  but the function, like many other functions, checks for the success of the\
  memory allocation with a function like\
 &nbsp;&nbsp;&nbsp;&nbsp;`if (q == NULL){`\
@@ -64,3 +64,11 @@ Our thread data structure `uthread_tcb` is a pretty simple struct that has
 a `void *` stack pointer, state, and thread context. There's also a queue for  
 ready processes, blocked processes, and a thread TCB for the currently running\
 thread.
+
+### Thread Functions
+- The function to create a thread is similar to how queues are created with an\
+initial memory allocation however a `createThread()` function is implemented  
+along with the `uthread_create()` function in order to take care of the memory 
+allocation for the thread as well as it's context while the state is ready  
+and the stack pointer is `NULL` on initialization.
+- The actual `uthread_create()` function 
