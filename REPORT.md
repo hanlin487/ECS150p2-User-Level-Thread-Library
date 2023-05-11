@@ -113,12 +113,21 @@ available to grab.
 
 ### Semaphore Functionality
 
+Lots of the semaphore functions make calls to functions in *uthread.c* or  
+*queue.c* in order to implement the correct functionality.
+
 - `sem_create()` takes argument **count** and allocates and initializes a new  
-semaphore with count **count**  
+semaphore with count **count**.  
 - `sem_destroy()` checks to make sure the semaphore exists and the waiting list  
-is empty then destroys the waiting list and the semaphore after  
+is empty then destroys the waiting list and the semaphore after.  
 - `sem_down()` will decrement **count** of the current semaphore by 1 if the  
-**count** > 0 else the currently running `thread` that calls it will be added  
-to the waiting list and become blocked to wait for the semaphore to be  
-available  
-- 
+**count** > 0 else call `uthread_current` to get the *RUNNING* thread and adds  
+it to the waiting list and blocks it.  
+- `sem_up()` will check if **count** is 0 and dequeue the oldest thread in the  
+waiting list if the waiting list is not empty. Otherwise increment the count  
+if the count is > 0 or the waiting list is empty.  
+
+### Semaphore Testing
+
+Semaphore testing is done with the included testing programs in the `apps`  
+library.  
