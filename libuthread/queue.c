@@ -8,23 +8,18 @@
 typedef struct node {
 	void* data;
 	struct node* next;
-
 } node;
 
 typedef struct queue {
-	/* TODO Phase 1 */
 	node* head;
 	node* tail;
 	int size;
-
 } queue;
 
-queue_t queue_create(void)
-{
-	/* TODO Phase 1 */
+queue_t queue_create(void){
 	queue_t q = (queue_t) malloc(sizeof(queue));
 
-	/* queue creation failure */
+	/* precheck */
 	if (q == NULL){
 		return NULL;
 	}
@@ -36,9 +31,8 @@ queue_t queue_create(void)
 	return q;
 }
 
-int queue_destroy(queue_t queue)
-{
-	/* TODO Phase 1 */
+int queue_destroy(queue_t queue){
+	/* precheck */
 	if (queue == NULL || queue->size != 0){
 		return -1;
 	}
@@ -47,12 +41,10 @@ int queue_destroy(queue_t queue)
 	return 0;
 }
 
-int queue_enqueue(queue_t queue, void *data)
-{
-	/* TODO Phase 1 */
+int queue_enqueue(queue_t queue, void *data){
 	node* n = malloc(sizeof(node));
 
-	/* if queue or data or mem allocation failure occurs then return -1 */
+	/* precheck */
 	if (queue == NULL || data == NULL || n == NULL){
 		return -1;
 	}
@@ -75,14 +67,13 @@ int queue_enqueue(queue_t queue, void *data)
 	return 0;
 }
 
-int queue_dequeue(queue_t queue, void **data)
-{
-	/* TODO Phase 1 */
-	/* if queue or data are null or queue is empty return -1 */
+int queue_dequeue(queue_t queue, void **data){
+	/* precheck */
 	if (queue == NULL || data == NULL || queue->size == 0){
 		return -1;
 	}
 
+	/* update head */
 	node* old_node = queue->head;
 	*data = queue->head->data;
 	queue->head = queue->head->next;
@@ -92,9 +83,8 @@ int queue_dequeue(queue_t queue, void **data)
 	return 0;
 }
 
-int queue_delete(queue_t queue, void *data)
-{
-	/* TODO Phase 1 */
+int queue_delete(queue_t queue, void *data){
+	/* precheck */
 	if (queue == NULL || data == NULL){
 		return -1;
 	}
@@ -142,9 +132,7 @@ int queue_delete(queue_t queue, void *data)
 	return -1;
 }
 
-int queue_iterate(queue_t queue, queue_func_t func)
-{
-	/* TODO Phase 1 */
+int queue_iterate(queue_t queue, queue_func_t func){
 	if (queue == NULL || func == NULL){
 		return -1;
 	}
@@ -161,8 +149,6 @@ int queue_iterate(queue_t queue, queue_func_t func)
 	return 0;
 }
 
-int queue_length(queue_t queue)
-{
-	/* TODO Phase 1 */
+int queue_length(queue_t queue){
 	return queue->size;
 }
