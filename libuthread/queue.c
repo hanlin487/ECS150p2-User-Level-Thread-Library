@@ -36,8 +36,9 @@ int queue_destroy(queue_t queue){
 	if (queue == NULL || queue->size != 0){
 		return -1;
 	}
-
+	
 	free(queue);
+
 	return 0;
 }
 
@@ -79,13 +80,14 @@ int queue_dequeue(queue_t queue, void **data){
 	queue->head = queue->head->next;
 
 	free(old_node);
+	old_node = NULL;
 	queue->size--;
 	return 0;
 }
 
 int queue_delete(queue_t queue, void *data){
 	/* precheck */
-	if (queue == NULL || data == NULL){
+	if (queue == NULL || data == NULL || queue->size == 0){
 		return -1;
 	}
 
@@ -106,6 +108,7 @@ int queue_delete(queue_t queue, void *data){
 		queue->head = queue->head->next;
 
 		free(temp);
+		temp = NULL;
 		queue->size--;
 
 		return 0;
@@ -121,6 +124,7 @@ int queue_delete(queue_t queue, void *data){
 				temp->next = n->next;
 
 				free(n);
+				n = NULL;
 				queue->size--;
 				return 0;
 			}
