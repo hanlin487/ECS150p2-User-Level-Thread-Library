@@ -62,6 +62,10 @@ a `void *` stack pointer, state, and thread context. There's also a global
 
 ### Thread Functionality
 
+Prechecking conditions are included in thread functions that return 0 on  
+sucess or -1 on failure due to errors with memory allocation or context  
+creation. More details in the header files.  
+
 - An additional `createThread()` function is implemented along with the  
 `uthread_create()` function in order to take care of the memory allocation for  
 the thread as well as it's context; the state is set to *READY* and the stack  
@@ -114,15 +118,18 @@ available to grab.
 ### Semaphore Functionality
 
 Lots of the semaphore functions make calls to functions in *uthread.c* or  
-*queue.c* in order to implement the correct functionality.
+*queue.c* in order to implement the correct functionality. Prechecks are used  
+in the functions that return 0 on success or -1/NULL on failure due to NULL  
+semaphores, nonempty waiting lists, or allocation errors. More details in the  
+header files.  
 
 - `sem_create()` takes argument **count** and allocates and initializes a new  
 semaphore with count **count**.  
 - `sem_destroy()` checks to make sure the semaphore exists and the waiting list  
 is empty then destroys the waiting list and the semaphore after.  
 - `sem_down()` will decrement **count** of the current semaphore by 1 if the  
-**count** > 0 else call `uthread_current` to get the *RUNNING* thread and adds  
-it to the waiting list and blocks it.  
+**count** > 0 else call `uthread_current()` to get the *RUNNING* thread and  
+adds it to the waiting list and blocks it.  
 - `sem_up()` will check if **count** is 0 and dequeue the oldest thread in the  
 waiting list if the waiting list is not empty. Otherwise increment the count  
 if the count is > 0 or the waiting list is empty.  
