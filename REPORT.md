@@ -12,18 +12,11 @@ linked list with node objects that contain a `void *` data pointer and a
 
 ### Queue Functionality
 
-- `queue_create()`  checks for the success of the memory allocation with a  
-function like
+Prechecking conditions are included in queue functions that return 0 on  
+sucess or -1 on failure due to errors with memory allocation.  
+More details in the header files.  
 
-```c
-                if (q == NULL){
-                    return NULL;
-                }
-```
-
-and `NULL` will be returned if the allocation fails. Otherwise initialize an  
-empty queue.
-
+- `queue_create()` allocates and initializes an empty queue.
 - `queue_destroy()` checks to see if the queue to free is valid. If not then  
 return -1 otherwise free it and return 0.  
 - `queue_enqueue()`, `queue_dequeue()`, and `queue_delete()` all perform their  
@@ -103,7 +96,7 @@ running thread to the waiting list and simply returns the running thread.
 ### Thread Testing
 
 Thread testing was just done with the included thread tester programs and both  
-passed with no erros.  
+passed with no errors.  
 
 ## **Semaphore Implementation**
 
