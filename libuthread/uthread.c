@@ -108,8 +108,13 @@ int uthread_run(bool preempt, uthread_func_t func, void *arg){
     running->state = RUNNING;
     uthread_create(func, arg);
 
+    if (preempt){
+        preempt_start(preempt);
+    }
+
     while (1){
 	    if (queue_length(ready_q) == 0){
+            preempt_stop();
 	        break;
         }
         else{
