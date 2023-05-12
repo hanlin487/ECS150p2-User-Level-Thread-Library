@@ -21,7 +21,7 @@ typedef struct uthread_tcb {
     uthread_ctx_t* context;
 } uthread_tcb;
 
-queue_t ready_q = NULL;
+static queue_t ready_q = NULL;
 //static queue_t blocked_q = NULL;
 static struct uthread_tcb* running;
 
@@ -85,7 +85,9 @@ void uthread_exit(void){
 }
 
 int uthread_run(bool preempt, uthread_func_t func, void *arg){
-    
+    if (preempt){
+	    printf("preempt");
+    }
 
     ready_q = queue_create();
 
@@ -105,21 +107,9 @@ int uthread_run(bool preempt, uthread_func_t func, void *arg){
 
     running->state = RUNNING;
     uthread_create(func, arg);
-    if(preempt){
-	preempt_start(preempt);
-    }
-
-    if (preempt){
-        preempt_start(preempt);
-    }
 
     while (1){
-<<<<<<< HEAD
-	if (queue_length(ready_q) == 0){
-=======
 	    if (queue_length(ready_q) == 0){
-            preempt_stop();
->>>>>>> cdec7904a6daa07c66778e3afa60776724024216
 	        break;
         }
         else{
@@ -134,7 +124,6 @@ struct uthread_tcb *uthread_current(void){
     return running;
 }
 
-
 void uthread_block(void){
     running->state = BLOCKED;
     //queue_enqueue(blocked_q, (void*)running);
@@ -145,11 +134,10 @@ void uthread_block(void){
     queue_dequeue(ready_q, (void**) &running);
     running->state = RUNNING;
     uthread_ctx_switch(first_proc->context, running->context);
-}    
+}
 
 void uthread_unblock(struct uthread_tcb *uthread){
     uthread->state = READY;
     //queue_delete(blocked_q,(void*) uthread);
     queue_enqueue(ready_q, (void*) uthread);
 }
-
