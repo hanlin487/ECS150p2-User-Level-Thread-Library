@@ -109,8 +109,17 @@ int uthread_run(bool preempt, uthread_func_t func, void *arg){
 	preempt_start(preempt);
     }
 
+    if (preempt){
+        preempt_start(preempt);
+    }
+
     while (1){
+<<<<<<< HEAD
 	if (queue_length(ready_q) == 0){
+=======
+	    if (queue_length(ready_q) == 0){
+            preempt_stop();
+>>>>>>> cdec7904a6daa07c66778e3afa60776724024216
 	        break;
         }
         else{
