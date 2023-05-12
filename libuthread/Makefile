@@ -5,7 +5,6 @@ SRCFILES := queue.c uthread.c context.c sem.c
 
 all: $(lib)
 
-## TODO: Phase 1
 $(lib): queue.o uthread.o context.o sem.o 
 	ar rcs $(lib) $^
 

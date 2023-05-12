@@ -51,7 +51,6 @@ void preempt_start(bool preempt)
 		new_timer.it_interval.tv_usec = 100 * HZ;
 		new_timer.it_interval.tv_sec = 0;
 		setitmer(ITIMER_VIRTUAL, &new_timer, &old_timer);
-
 	}
 }
 

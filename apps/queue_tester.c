@@ -1,6 +1,7 @@
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include <queue.h>
 
@@ -104,6 +105,33 @@ void test_destroy_nonempty(){
     TEST_ASSERT(queue_destroy(q) == -1);
 }
 
+void test_del_head_tail(){
+    fprintf(stderr, "\n*** TEST del_head_tail ***\n");
+    queue_t q = queue_create();
+    int data[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, *ptr;
+    size_t i;
+
+    for (i = 0; i <sizeof(data) / sizeof(data[0]); i++){
+        queue_enqueue(q, &data[i]);
+    }
+
+    TEST_ASSERT(queue_length(q) == 10);
+    queue_delete(q, &data[0]);
+    queue_delete(q, &data[9]);
+    TEST_ASSERT(queue_length(q) == 8);
+    queue_dequeue(q, (void**) &ptr);
+    TEST_ASSERT(*ptr == 2);
+    queue_dequeue(q, (void**) &ptr); /* ptr = 3*/
+    queue_dequeue(q, (void**) &ptr); /* ptr = 4*/
+    queue_dequeue(q, (void**) &ptr); /* ptr = 5*/
+    queue_dequeue(q, (void**) &ptr); /* ptr = 6*/
+    queue_dequeue(q, (void**) &ptr); /* ptr = 7*/
+    queue_dequeue(q, (void**) &ptr); /* ptr = 8*/
+    queue_dequeue(q, (void**) &ptr); /* ptr = 9*/
+    TEST_ASSERT(*ptr == 9);
+    TEST_ASSERT(queue_length(q) == 0);
+}
+
 int main(void){
     test_create();
     test_queue_simple();
@@ -113,5 +141,6 @@ int main(void){
     test_dequeue_empty();
     test_delete_same();
     test_destroy_nonempty();
+    test_del_head_tail();
     return 0;
 }
