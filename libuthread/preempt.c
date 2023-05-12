@@ -10,9 +10,6 @@
 #include "private.h"
 #include "uthread.h"
 
-
-
-
 /*
  * Frequency of preemption
  * 100Hz is 100 times per second
@@ -81,13 +78,6 @@ void preempt_start(bool preempt)
 		timer.it_interval.tv_sec = 0;
 		timer.it_interval.tv_usec = ((1.0 / HZ) * 1000000);
 
-<<<<<<< HEAD
-=======
-
-		
-		
-		
->>>>>>> cdec7904a6daa07c66778e3afa60776724024216
 		//Store old timer in old_t itimerval structure, start timer
 		setitimer(ITIMER_VIRTUAL,&timer,&old_t);
 
@@ -103,10 +93,5 @@ void preempt_stop(void)
 	//Assuming we use those olds to reset timer and sig handler
 	sigaction(SIGVTALRM,&old,NULL);
 	setitimer(SIGVTALRM,&old_t, NULL);
-<<<<<<< HEAD
-=======
-	
-	
->>>>>>> cdec7904a6daa07c66778e3afa60776724024216
 }
 
