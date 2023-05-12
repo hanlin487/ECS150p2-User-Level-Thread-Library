@@ -4,10 +4,12 @@
 #include "queue.h"
 #include "sem.h"
 #include "private.h"
+#include "uthread.h"
 
 struct semaphore {
 	size_t count;
 	queue_t waiting;
+	
 };
 
 sem_t sem_create(size_t count)
@@ -17,6 +19,8 @@ sem_t sem_create(size_t count)
 	if (s == NULL){
 		return NULL;
 	}
+
+	
 
 	s -> count = count;
 	s -> waiting = queue_create();
@@ -45,7 +49,9 @@ int sem_down(sem_t sem)
 		return -1;
 	}
 
+
 	if (sem -> count > 0){
+		
 		sem -> count -=1;
 	}
 	else if(sem -> count == 0){
@@ -66,7 +72,7 @@ int sem_up(sem_t sem)
 		if (queue_length(sem -> waiting) > 0){
 			struct uthread_tcb *first_in_line;
 			queue_dequeue(sem -> waiting, (void**)&first_in_line);
-			uthread_unblock(first_in_line);
+			uthread_unblock(first_in_line); 
 
 		}
 
